@@ -1,9 +1,8 @@
 from django.db import models
-
 # Create your models here.
 
 class Image(models.Model):
-    caption=models.CharField(max_length=100)
-    image=models.FileField(upload_to="img/%y")
+    Song_Name=models.CharField(max_length=100)
+    Upload_File=models.FileField(upload_to=".")
     def __str__(self):
-        return self.caption
+        return self.Song_Name
