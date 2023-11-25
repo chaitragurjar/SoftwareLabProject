@@ -15,28 +15,52 @@
   <body body id="bg" style="background-image: url('/static/bg.jpg'); background-size: cover; background-repeat: no-repeat; height: 100vh;";>
     <div id = "container" style="display: flex; margin: auto; width: 100%;">
       <div id="header"  style="margin-top: 7%; margin-left: 5%; flex:1;">
-        <h1 style="font-family: 'Borel'; text-align: left; font-weight: bold; font-size: 50px;">VocalLibre Karaoke Hub</h1> <br>
-        <p style="font-family: 'Poppins'; text-align: left; font-weight: bold; font-size: 20px; width: 50%; text-align: justify;">
+        <h1 style="font-family: 'Borel'; text-align: left; font-weight: bold; font-size: 40px;">VocalLibre Karaoke Hub</h1> <br>
+        <p style="font-family: 'Poppins'; text-align: left; font-weight: bold; font-size: 20px; width: 80%; text-align: justify;">
           Welcome to VocalLibre Karaoke Hub, where the magic of music takes center stage! With VocalLibre, you embark on a sonic journey where your favorite tunes transform into personalized karaoke masterpieces. Simply upload your cherished audio, and watch as our cutting-edge technology delicately separates vocals and music, leaving you with a pristine instrumental canvas. Now, you're free to immerse yourself in the melody, explore your vocal prowess, and create harmonious renditions without the distraction of lyrics. VocalLibre Karaoke Hub isn't just a platform; it's your musical playground, where the spotlight is on your voice, and every note becomes an expression of your unique artistry. 
         </p>
       </div>
 
       <div class="form-group" style="flex:1; font-family: 'Poppins'; text-align: left; font-weight: bold; font-size: 20px; margin-top: 10%; width: 100px; align-items : center;" >
-        <form action="." method="post" enctype="multipart/form-data" style="width: 40%; line-height: 400%;">
+        <form action="." method="post" enctype="multipart/form-data" style="margin-left: 60%; width: 60%; line-height: 400%;">
             {% csrf_token %}
             {{form.as_p}}
             <button type="submit" class="btn btn-lg btn-success" onmouseover="this.style.background='rgba(167,126,132,255)'" onmouseout="this.style.background='rgba(232,179,185,255)'" style="background: rgba(232,179,185,255); box-shadow: 5px 5px black; font-weight: bold;">Upload</button>
         </form>
         {% if obj %}
             <h3 style="font-family: 'Poppins'; text-align: left; font-weight: bold; font-size: 20px;">Succesfully Uploaded {{obj.Song_Name}}</h3>
-            <br> <br> <br>
+            <br> <br> 
             <audio controls autoplay><source src="/media/output/{{obj.Upload_File.name}}/vocals.wav" type="audio/wav" download></audio> <br>
             <a href="/media/output/{{obj.Upload_File.name}}/vocals.wav" download>Download Vocals</a>
-            <br> <br> <br>
+            <br> <br> 
             <audio controls autoplay><source src="/media/output/{{obj.Upload_File.name}}/accompaniment.wav" type="audio/wav" download></audio> <br>
             <a href="/media/output/{{obj.Upload_File.name}}/accompaniment.wav" download>Download Music</a>
-            <br> <br> <br>
+            <br> <br> 
         {% endif %}
+        </div>
+        <div id="history" style="flex:1; font-family: 'Poppins'; text-align: right; font-weight: bold; font-size: 20px; margin-top: 5%; margin-right: 5%;">
+          <button id="btn" onclick="interactFunc()" type="submit" class="btn btn-lg btn-success" onmouseover="this.style.background='rgba(167,126,132,255)'" onmouseout="this.style.background='rgba(232,179,185,255)'" style="background: rgba(232,179,185,255); box-shadow: 5px 5px black; font-weight: bold;">Show History</button>
+          <br><br>
+          <div id="data" style="display: none;">
+          {% for x in img %}
+            <a href="/media/output/{{x.Upload_File.name}}/vocals.wav" download>Download {{x.Song_Name}} Vocals</a> <br>
+            <a href="/media/output/{{x.Upload_File.name}}/accompaniment.wav" download>Download {{x.Song_Name}} Music</a> <br> <br>
+          {% endfor %}
+          </div>
+          <script>
+            var flag_interact = true;
+            function interactFunc() {
+            if(flag_interact){
+              document.getElementById('data').style.display = "block";
+              document.getElementById('btn').innerHTML = "Close History";
+            }
+            else{
+              document.getElementById('data').style.display = "none";
+              document.getElementById('btn').innerHTML = "Show History";
+            }
+            flag_interact = !flag_interact; 
+            }
+          </script>
         </div>
       </div>
     <!-- Optional JavaScript -->
