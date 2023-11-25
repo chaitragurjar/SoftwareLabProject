@@ -30,9 +30,11 @@
         {% if obj %}
             <h3 style="font-family: 'Poppins'; text-align: left; font-weight: bold; font-size: 20px;">Succesfully Uploaded {{obj.Song_Name}}</h3>
             <br> <br> <br>
-            <audio controls autoplay><source src="/media/output/{{obj.Upload_File.name}}/vocals.wav" type="audio/wav" download></audio>
+            <audio controls autoplay><source src="/media/output/{{obj.Upload_File.name}}/vocals.wav" type="audio/wav" download></audio> <br>
+            <a href="/media/output/{{obj.Upload_File.name}}/vocals.wav" download>Download Vocals</a>
             <br> <br> <br>
-            <audio controls autoplay><source src="/media/output/{{obj.Upload_File.name}}/accompaniment.wav" type="audio/wav" download></audio>
+            <audio controls autoplay><source src="/media/output/{{obj.Upload_File.name}}/accompaniment.wav" type="audio/wav" download></audio> <br>
+            <a href="/media/output/{{obj.Upload_File.name}}/accompaniment.wav" download>Download Music</a>
             <br> <br> <br>
         {% endif %}
         </div>
